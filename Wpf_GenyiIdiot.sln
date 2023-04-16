@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf_GenyiIdiot", "Wpf_GenyiIdiot\Wpf_GenyiIdiot.csproj", "{BE8CC1F7-2D69-436B-A029-7B71C0E09E5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE8CC1F7-2D69-436B-A029-7B71C0E09E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8CC1F7-2D69-436B-A029-7B71C0E09E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8CC1F7-2D69-436B-A029-7B71C0E09E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8CC1F7-2D69-436B-A029-7B71C0E09E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C000126-5737-466D-B394-A3E460EE9E1B}
+	EndGlobalSection
+EndGlobal

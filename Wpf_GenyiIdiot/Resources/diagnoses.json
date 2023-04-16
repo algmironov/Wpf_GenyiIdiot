@@ -1,0 +1,32 @@
+﻿[
+  {
+    "UserDiagnosis": "\u041A\u0440\u0435\u0442\u0438\u043D",
+    "Min": -1,
+    "Max": 17
+  },
+  {
+    "UserDiagnosis": "\u0418\u0434\u0438\u043E\u0442",
+    "Min": 16,
+    "Max": 33
+  },
+  {
+    "UserDiagnosis": "\u0414\u0443\u0440\u0430\u043A",
+    "Min": 32,
+    "Max": 64
+  },
+  {
+    "UserDiagnosis": "\u041D\u043E\u0440\u043C\u0430\u043B\u044C\u044B\u043D\u0439",
+    "Min": 63,
+    "Max": 79
+  },
+  {
+    "UserDiagnosis": "\u0422\u0430\u043B\u0430\u043D\u0442",
+    "Min": 78,
+    "Max": 95
+  },
+  {
+    "UserDiagnosis": "\u0413\u0435\u043D\u0438\u0439",
+    "Min": 94,
+    "Max": 101
+  }
+]
