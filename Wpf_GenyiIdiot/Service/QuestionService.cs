@@ -6,20 +6,18 @@ namespace Wpf_GenyiIdiot.Service
     public class QuestionService
     {
         static List<Question> questionList = new ();
-        static readonly string pathToQuestions = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "questions.json");
+        static readonly string pathToQuestions = @"Resources\questions.json";
 
-        public static async Task<List<Question>> GetQuestions()
+        public static List<Question> GetQuestions()
         {
-            StreamReader reader = new (pathToQuestions, Encoding.UTF8);
-            var contents = await reader.ReadToEndAsync();
-            questionList = JsonSerializer.Deserialize<List<Question>>(contents);
+            var content = DataDealer.GetDataFromJson(pathToQuestions);
+            questionList = JsonSerializer.Deserialize<List<Question>>(content);
             return questionList;
         }
 
-        public static async Task<int> GetQuestionsCount()
+        public static int GetQuestionsCount()
         {
-            StreamReader reader = new (pathToQuestions, Encoding.UTF8);
-            var contents = await reader.ReadToEndAsync();
+            var contents = DataDealer.GetDataFromJson(pathToQuestions);
             questionList = JsonSerializer.Deserialize<List<Question>>(contents);
             return questionList.Count;
         }
@@ -29,8 +27,15 @@ namespace Wpf_GenyiIdiot.Service
             try
             {
                 QuestionsStorage.AddQuestion(editedQuestion);
-                QuestionsStorage.RemoveQuestion(oldQuestion);
-                return true;
+                if (QuestionsStorage.RemoveQuestion(oldQuestion))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             catch
             {
@@ -40,15 +45,11 @@ namespace Wpf_GenyiIdiot.Service
 
         public static bool DeleteQuestion(Question question)
         {
-            try
+            if (QuestionsStorage.RemoveQuestion(question))
             {
-                QuestionsStorage.RemoveQuestion(question);
                 return true;
             }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
 
         public static bool AddQuestion(Question question)

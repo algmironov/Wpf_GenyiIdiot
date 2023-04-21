@@ -1,0 +1,56 @@
+﻿<Window x:Class="Wpf_GenyiIdiot.Pages.QuestionEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_GenyiIdiot.Pages"
+        mc:Ignorable="d"
+        Title="Редактирование вопроса" Height="315" Width="450" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="150"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" 
+               Grid.Column="0" 
+               x:Name="textLabel" 
+               Content="Текст вопроса:" 
+               HorizontalAlignment="Right" 
+               Margin="0,0,20,0" 
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="1" 
+               Grid.Column="0" 
+               x:Name="answerLabel" 
+               Content="Ответ:" 
+               HorizontalAlignment="Right"
+               Margin="0,0,20,0" 
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" 
+                 Grid.Column="1"
+                 x:Name="questionTextPlace" 
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center" 
+                 Text="" 
+                 MinWidth="50"
+                 MaxLines="10" 
+                 TextWrapping="Wrap" />
+        <TextBox Grid.Row="1" 
+                 Grid.Column="1" 
+                 x:Name="answerTextPlace" 
+                 HorizontalAlignment="Left" 
+                 VerticalAlignment="Center" 
+                 MinWidth="50" 
+                 Text=""/>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="2" >
+            <Button x:Name="saveDataButton" Content="Сохранить изменения" Width="150" Height="30" Margin="100, 35, 100, 10" Click="SaveDataButton_Click"/>
+            <Button x:Name="closeButton" Content="Закрыть" Width="150" Height="30" Margin="100, 10, 100, 20" Click="OnCloseButton_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

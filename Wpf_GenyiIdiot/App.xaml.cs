@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using Wpf_GenyiIdiot.Pages;
+
 namespace Wpf_GenyiIdiot
 {
     /// <summary>
