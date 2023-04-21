@@ -6,16 +6,16 @@ namespace Wpf_GenyiIdiot.Storage
     public class ResultStorage
     {
         static readonly string filename = "results.json";
-        static readonly string pathToResults = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), filename);
+        static readonly string pathToResults = @$"Resources\{filename}";
 
 
-        public static void AddResult(Result result)
+        public static bool AddResult(Result result)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             List<Result> resultList = GetListOfResults();
             resultList.Add(result);
             var data = JsonSerializer.Serialize(resultList, options);
-            _ = DataDealer.SaveData(pathToResults, data);
+            return DataDealer.SaveData(pathToResults, data);
         }
 
         public static List<Result> GetListOfResults()
@@ -30,23 +30,22 @@ namespace Wpf_GenyiIdiot.Storage
                 var results = JsonSerializer.Deserialize<List<Result>>(resultsString);
                 return results;
             }
-            
+
         }
 
         public static List<List<string>> GetAllResults()
         {
-            List<List<string>> results = new ();
-             var resultsString = DataDealer.GetDataFromJson(pathToResults);
+            List<List<string>> results = new();
+            var resultsString = DataDealer.GetDataFromJson(pathToResults);
             if (!string.IsNullOrEmpty(resultsString))
             {
                 var resultsList = JsonSerializer.Deserialize<List<Result>>(resultsString);
-                
+
                 foreach (var res in resultsList)
                 {
                     List<string> elem = new() { res.Name, res.CorrectAnswersCount.ToString(), res.QuestionsAsked.ToString(), res.Diagnosis };
                     results.Add(elem);
                 }
-
                 return results;
             }
             return results;
@@ -57,12 +56,12 @@ namespace Wpf_GenyiIdiot.Storage
             File.WriteAllText(filename, string.Empty);
         }
 
-        public static void RemoveChoosenResult(Result result)
+        public static bool RemoveChoosenResult(Result result)
         {
             var results = GetListOfResults().Where(x =>!x.Equals(result)).ToList();
             var options = new JsonSerializerOptions { WriteIndented = true };
             var jsonString = JsonSerializer.Serialize<List<Result>>(results, options);
-            _ = DataDealer.SaveData(pathToResults, jsonString);
+            return DataDealer.SaveData(pathToResults, jsonString);
         }
 
     }

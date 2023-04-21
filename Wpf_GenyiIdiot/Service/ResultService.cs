@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using GenyiIdiotMauiApp.DataBase;
-using GenyiIdiotMauiApp.Model;
-using GenyiIdiotMauiApp.View;
+using Wpf_GenyiIdiot.Storage;
+using Wpf_GenyiIdiot.Model;
 
-namespace GenyiIdiotMauiApp.Service
+namespace Wpf_GenyiIdiot.Service
 {
     public class ResultService
     {
         static List<Result> resultList = new();
         static readonly string pathToResults = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "results.json");
-        public async Task<List<Result>> GetResults()
+        
+        public static async Task<List<Result>> GetResults()
         {
             StreamReader reader = new(pathToResults, Encoding.UTF8);
             var contents = await reader.ReadToEndAsync();
@@ -22,7 +22,7 @@ namespace GenyiIdiotMauiApp.Service
             return resultList;
         }
 
-        public void SaveResult(Result result)
+        public static void SaveResult(Result result)
         {
            ResultStorage.AddResult(result);
         }

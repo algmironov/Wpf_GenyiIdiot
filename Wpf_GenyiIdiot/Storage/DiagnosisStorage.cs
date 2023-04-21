@@ -28,6 +28,13 @@ namespace Wpf_GenyiIdiot.Storage
             return string.Empty;
         }
 
+        //private async static void LoadAllDiagnoses()
+        //{
+        //    var allDiagnoses = await DataDealer.GetDataFromJson(pathToDiagnoses);
+        //    List<Diagnosis> diagnosesList = JsonSerializer.Deserialize<List<Diagnosis>>(allDiagnoses);
+        //    diagnoses = diagnosesList.ToHashSet();
+        //}
+
         private static void LoadAllDiagnoses()
         {
             var allDiagnoses = DataDealer.GetDataFromJson(pathToDiagnoses);
