@@ -15,6 +15,28 @@ namespace Wpf_GenyiIdiot.Service
             return questionList;
         }
 
+        public static List<Question> GetQuestions(int amount)
+        {
+            var content = DataDealer.GetDataFromJson(pathToQuestions);
+            questionList = JsonSerializer.Deserialize<List<Question>>(content);
+            if (amount >= questionList.Count)
+            {
+                return questionList;
+            }
+            else
+            {
+                List<Question> result = new List<Question>();
+                Random random = new Random();
+                for (int i = 0; i < amount; i++)
+                {
+                    var index = random.Next(0, questionList.Count);
+                    result.Add(questionList[index]);
+                    questionList.RemoveAt(index);
+                }
+                return result;
+            }
+        }
+
         public static int GetQuestionsCount()
         {
             var contents = DataDealer.GetDataFromJson(pathToQuestions);
@@ -26,16 +48,7 @@ namespace Wpf_GenyiIdiot.Service
         {
             try
             {
-                QuestionsStorage.AddQuestion(editedQuestion);
-                if (QuestionsStorage.RemoveQuestion(oldQuestion))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                
+                return QuestionsStorage.AddQuestion(editedQuestion) && QuestionsStorage.RemoveQuestion(oldQuestion); 
             }
             catch
             {
@@ -45,24 +58,12 @@ namespace Wpf_GenyiIdiot.Service
 
         public static bool DeleteQuestion(Question question)
         {
-            if (QuestionsStorage.RemoveQuestion(question))
-            {
-                return true;
-            }
-            return false;
+            return QuestionsStorage.RemoveQuestion(question);
         }
 
         public static bool AddQuestion(Question question)
         {
-            try
-            {
-                QuestionsStorage.AddQuestion(question);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return QuestionsStorage.AddQuestion(question);
         }
     }
 }

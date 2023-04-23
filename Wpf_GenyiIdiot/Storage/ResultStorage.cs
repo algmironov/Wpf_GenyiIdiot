@@ -53,7 +53,7 @@ namespace Wpf_GenyiIdiot.Storage
 
         public static void ClearResults()
         {
-            File.WriteAllText(filename, string.Empty);
+            File.WriteAllText(pathToResults, string.Empty);
         }
 
         public static bool RemoveChoosenResult(Result result)

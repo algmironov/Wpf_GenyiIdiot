@@ -12,12 +12,12 @@ namespace Wpf_GenyiIdiot.Service
     public class ResultService
     {
         static List<Result> resultList = new();
-        static readonly string pathToResults = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "results.json");
+        static readonly string pathToResults = @"Resources\results.json";
         
-        public static async Task<List<Result>> GetResults()
+        public static List<Result> GetResults()
         {
-            StreamReader reader = new(pathToResults, Encoding.UTF8);
-            var contents = await reader.ReadToEndAsync();
+            
+            var contents = DataDealer.GetDataFromJson(pathToResults);
             resultList = JsonSerializer.Deserialize<List<Result>>(contents);
             return resultList;
         }

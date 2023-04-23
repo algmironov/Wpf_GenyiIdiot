@@ -6,7 +6,7 @@ namespace Wpf_GenyiIdiot.Storage
     {
         public static HashSet<Diagnosis> diagnoses = new ();
         static readonly string filename = "diagnoses.json";
-        static readonly string pathToDiagnoses = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), filename);
+        static readonly string pathToDiagnoses = @$"Resources\{filename}";
 
 
         public static void AddDiagnosis(Diagnosis diagnosis)
