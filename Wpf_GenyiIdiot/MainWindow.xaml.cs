@@ -32,7 +32,7 @@ namespace Wpf_GenyiIdiot
         private void OnPlayGameButton_Click(object sender, RoutedEventArgs e)
         {
             GamePage gamePage = new GamePage();
-            this.Hide();
+            Hide();
             gamePage.ShowDialog();
             Show();
         }
