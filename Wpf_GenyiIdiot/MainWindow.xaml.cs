@@ -31,12 +31,11 @@ namespace Wpf_GenyiIdiot
 
         private void OnPlayGameButton_Click(object sender, RoutedEventArgs e)
         {
-
+            GamePage gamePage = new GamePage();
+            this.Hide();
+            gamePage.ShowDialog();
+            Show();
         }
 
-        private void playGameButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
