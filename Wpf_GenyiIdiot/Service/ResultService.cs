@@ -16,15 +16,26 @@ namespace Wpf_GenyiIdiot.Service
         
         public static List<Result> GetResults()
         {
-            
-            var contents = DataDealer.GetDataFromJson(pathToResults);
-            resultList = JsonSerializer.Deserialize<List<Result>>(contents);
+            resultList = ResultStorage.GetListOfResults();
             return resultList;
         }
 
         public static void SaveResult(Result result)
         {
            ResultStorage.AddResult(result);
+        }
+
+        public static void ClearResults()
+        {
+            resultList.Clear();
+            ResultStorage.ClearResults();
+        }
+
+        public static void RemoveResult(Result result)
+        {
+            ResultStorage.RemoveChoosenResult(result);
+            resultList.Clear();
+            resultList = GetResults();
         }
     }
 }

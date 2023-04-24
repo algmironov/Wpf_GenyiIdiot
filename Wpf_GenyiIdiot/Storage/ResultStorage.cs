@@ -33,24 +33,6 @@ namespace Wpf_GenyiIdiot.Storage
 
         }
 
-        public static List<List<string>> GetAllResults()
-        {
-            List<List<string>> results = new();
-            var resultsString = DataDealer.GetDataFromJson(pathToResults);
-            if (!string.IsNullOrEmpty(resultsString))
-            {
-                var resultsList = JsonSerializer.Deserialize<List<Result>>(resultsString);
-
-                foreach (var res in resultsList)
-                {
-                    List<string> elem = new() { res.Name, res.CorrectAnswersCount.ToString(), res.QuestionsAsked.ToString(), res.Diagnosis };
-                    results.Add(elem);
-                }
-                return results;
-            }
-            return results;
-        }
-
         public static void ClearResults()
         {
             File.WriteAllText(pathToResults, string.Empty);
