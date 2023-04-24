@@ -26,7 +26,10 @@ namespace Wpf_GenyiIdiot
 
         private void OnResultsTableButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ResultsTable resultsTable = new ResultsTable();
+            Hide();
+            resultsTable.ShowDialog();
+            Show();
         }
 
         private void OnPlayGameButton_Click(object sender, RoutedEventArgs e)

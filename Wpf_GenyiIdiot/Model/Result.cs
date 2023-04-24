@@ -7,7 +7,7 @@ namespace Wpf_GenyiIdiot.Model
     {
         public string Name { get; set; } = "Unknown";
         public int CorrectAnswersCount { get; set; } = 0;
-        public int QuestionsAsked { get; set; } = 0;
+        public int QuestionsAsked { get; set; }  = 0;
         public string Diagnosis { get; set; } = "Unknown";
 
         public Result(string name, int answersCount, int questionsAsked, string diagnosis)
@@ -25,7 +25,7 @@ namespace Wpf_GenyiIdiot.Model
 
         public override string ToString()
         {
-            return $"{Name},{CorrectAnswersCount} ,{Diagnosis}";
+            return $"{Name}, {CorrectAnswersCount} , {QuestionsAsked}, {Diagnosis}";
         }
 
         public override bool Equals(object obj)

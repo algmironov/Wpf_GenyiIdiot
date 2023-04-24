@@ -33,8 +33,6 @@ namespace Wpf_GenyiIdiot.Pages
         private void OnStartLoadQuestionsList()
         {
             List<Question> questions = QuestionService.GetQuestions();
-            //List<string> questionTextForTextBox = questions.Select(x => x.Text).ToList();
-            //questionsListBox.ItemsSource = questionTextForTextBox;
             questionsListBox.ItemsSource = questions;
             var menu = new ContextMenu();
             questionsListBox.ContextMenu = menu;
