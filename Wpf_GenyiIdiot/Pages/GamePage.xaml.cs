@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq.Expressions;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 using Wpf_GenyiIdiot.Model;
 using Wpf_GenyiIdiot.Service;
@@ -27,6 +20,7 @@ namespace Wpf_GenyiIdiot.Pages
         public static string Username { get; set; } = string.Empty;
         int questionsAmountToAsk = Properties.Settings.Default.questionCountSetByUser;
         int timeForOneQuestion = Properties.Settings.Default.timeSetByUser;
+        int timeLeft = 0;
         List<Question> questionList = new List<Question>();
         List<Question> questionsToAsk = new List<Question>();
         Question question = new ();
@@ -34,18 +28,23 @@ namespace Wpf_GenyiIdiot.Pages
         int questionNumber = 0;
         int askedQuestionsCount = 0;
         Result result = new();
+        DispatcherTimer timer = new DispatcherTimer();
+        double progressBarStep = 0;
 
         public GamePage()
         {
             InitializeComponent();
             ProgressBarInit();
             GenerateQuestionList();
+            TimerInit();
             UpdatePage();
 
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
+            sendAnswerButton.Content = "Отправить ответ";
+            progressBar.Value += progressBarStep;
             int answer = 0;
             var accepted = false;
             try
@@ -65,6 +64,7 @@ namespace Wpf_GenyiIdiot.Pages
             {
                 result.QuestionsAsked++;
                 askedQuestionsCount++;
+
             }
 
             
@@ -79,11 +79,12 @@ namespace Wpf_GenyiIdiot.Pages
 
             if (askedQuestionsCount != questionsAmountToAsk)
             {
-                progressBar.Value = 0;
                 UpdatePage();
+                ResetTimer();
             }
             else
             {
+                timer.Stop();
                 var diagnosis = DiagnosisStorage.GetDiagnosisByResult(result.CorrectAnswersCount, result.QuestionsAsked);
                 result.Diagnosis = diagnosis;
                 MessageBoxResult res = MessageBox.Show($"Вы ответили на {result.CorrectAnswersCount} вопросов из {result.QuestionsAsked}.\nВаш диагноз: {diagnosis}", "Игра окончена!", MessageBoxButton.OKCancel);
@@ -99,13 +100,41 @@ namespace Wpf_GenyiIdiot.Pages
             }
         }
 
+        private void TimerInit()
+        {
+            timeLeft = timeForOneQuestion;
+            
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            timeLeft--;
+
+            
+            sendAnswerButton.Content = $"Отправить ({timeLeft} {SecondsSpelling(timeLeft)})";
+            
+            if (timeLeft == 0)
+            {
+                timer.Stop();
+                timeLeft = 10;
+                SendButton_Click(sender, new RoutedEventArgs());
+            }
+        }
+
+        private void ResetTimer()
+        {
+            timer.Stop();
+            timeLeft = 10;
+            timer.Start();
+        }
+
         private void ProgressBarInit()
         {
             progressBar.Minimum = 0;
             progressBar.Maximum = 100;
-            //int initialValue = 100 / questionNumber;
-            //progressBar.Value += initialValue;
-            
+            progressBarStep = 100 / questionsAmountToAsk;
         }
 
 
@@ -142,6 +171,7 @@ namespace Wpf_GenyiIdiot.Pages
             //questionTextLabel.Content = question.Text;
             answerTextBox.Text = string.Empty;
             answerTextBox.Focus();
+            
         }
 
         private void SendAnswerButton_MouseMove(object sender, MouseEventArgs e)
@@ -154,6 +184,32 @@ namespace Wpf_GenyiIdiot.Pages
         {
             sendAnswerButton.BorderBrush = Brushes.Blue;
             sendAnswerButton.Background = Brushes.AliceBlue;
+        }
+
+        private static string SecondsSpelling(int num)
+        {
+            string seconds = "";
+            switch (num)
+            {
+                case 0:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    seconds = "секунд";
+                    break;
+                case 1:
+                    seconds = "секунда";
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    seconds = "секунды";
+                    break;
+            }
+            return seconds;
         }
     }
 }

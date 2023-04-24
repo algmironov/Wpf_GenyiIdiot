@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_GenyiIdiot.Pages"
         mc:Ignorable="d"
-        Title="Введите имя" MinHeight="300" MinWidth="400" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight">
+        Title="Введите имя" MinHeight="300" MinWidth="400" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
