@@ -23,6 +23,7 @@ namespace Wpf_GenyiIdiot.Pages
         public EnterNamePage()
         {
             InitializeComponent();
+            inputTextBox.Focus();
         }
 
         void OnSaveButtonClick(object sender, RoutedEventArgs e)
@@ -37,6 +38,18 @@ namespace Wpf_GenyiIdiot.Pages
         void OnDontSaveButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                OnSaveButtonClick(sender, e);
+            }
+            if (e.Key == Key.Escape)
+            {
+                OnDontSaveButtonClick(sender, e);
+            }
         }
     }
 }
