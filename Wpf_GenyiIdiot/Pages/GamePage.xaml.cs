@@ -93,8 +93,11 @@ namespace Wpf_GenyiIdiot.Pages
                     EnterNamePage enterNamePage = new EnterNamePage();
                     enterNamePage.Owner = this;
                     enterNamePage.ShowDialog();
-                    result.Name = Username;
-                    ResultService.SaveResult(result);
+                    if (!string.IsNullOrEmpty(Username) || !string.IsNullOrWhiteSpace(Username))
+                    {
+                        result.Name = Username;
+                        ResultService.SaveResult(result);
+                    }
                     this.Close();
                 }
             }
@@ -210,6 +213,14 @@ namespace Wpf_GenyiIdiot.Pages
                     break;
             }
             return seconds;
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendButton_Click(sender, e);
+            }
         }
     }
 }
