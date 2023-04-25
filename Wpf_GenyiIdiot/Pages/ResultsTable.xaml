@@ -16,7 +16,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <DataGrid x:Name="dataGrid" HorizontalGridLinesBrush="DarkBlue" VerticalGridLinesBrush="DarkCyan" GridLinesVisibility="All" Grid.Row="1"  ItemsSource="{Binding Results}" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGrid" 
+                  HorizontalGridLinesBrush="DarkBlue" 
+                  VerticalGridLinesBrush="DarkCyan" 
+                  GridLinesVisibility="All" 
+                  Grid.Row="1"  
+                  ItemsSource="{Binding Results}" 
+                  AutoGenerateColumns="False">
             
             <DataGrid.ContextMenu>
                 <ContextMenu>

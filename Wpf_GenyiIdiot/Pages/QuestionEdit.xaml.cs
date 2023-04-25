@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 using Wpf_GenyiIdiot.Model;
 using Wpf_GenyiIdiot.Service;
+using Wpf_GenyiIdiot.ViewModel;
 
 namespace Wpf_GenyiIdiot.Pages
 {
@@ -23,19 +13,30 @@ namespace Wpf_GenyiIdiot.Pages
     public partial class QuestionEdit : Window
     {
         Question question = new Question();
-        public QuestionEdit(Question question)
+        private readonly QuestionsViewModel viewModel;
+        public QuestionEdit(Question question, QuestionsViewModel vm)
         {
             InitializeComponent();
+            viewModel = vm;
             this.question = question;
             OnLoadToEdit();
             this.question = question;
             Title = "Редактирование вопроса";
+            Closed += QuestionEdit_Closed;
         }
 
-        public QuestionEdit()
+        private void QuestionEdit_Closed(object? sender, EventArgs e)
+        {
+            viewModel.UpdateQuestionsCommand.Execute(viewModel.Questions);
+        }
+
+        public QuestionEdit(QuestionsViewModel vm)
         {
             InitializeComponent();
+            viewModel = vm;
             Title = "Добавление вопроса";
+            OnLoadToCreate();
+            Closed += QuestionEdit_Closed;
         }
 
         private void OnLoadToEdit()
@@ -46,13 +47,15 @@ namespace Wpf_GenyiIdiot.Pages
 
         private void OnLoadToCreate()
         {
+            saveDataButton.Content = "Сохранить вопрос";
             questionTextPlace.Text = string.Empty;
+            questionTextPlace.Focus();
             answerTextPlace.Text = string.Empty;
         }
 
         private void OnCloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)
@@ -77,7 +80,7 @@ namespace Wpf_GenyiIdiot.Pages
                     var editedQuestion = new Question(editedQuestionText, newAnswer);
                     QuestionService.EditQuestion(question, editedQuestion);
                     MessageBox.Show("Вопрос успешно отредактирован!", "Успех!", MessageBoxButton.OK);
-                    this.Close();
+                    Close();
                 }
             }
             else
@@ -86,9 +89,22 @@ namespace Wpf_GenyiIdiot.Pages
                 question.Text = editedQuestionText;
                 QuestionService.AddQuestion(question);
                 MessageBox.Show("Вопрос успешно Сохранен!", "Успех!", MessageBoxButton.OK);
+                Close();
             }
             
+            Close();
+        }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SaveDataButton_Click(sender, e);
+            }
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
         }
     }
 }

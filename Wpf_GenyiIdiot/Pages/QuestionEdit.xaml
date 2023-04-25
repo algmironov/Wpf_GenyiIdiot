@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_GenyiIdiot.Pages"
         mc:Ignorable="d"
-        Title="Редактирование вопроса" Height="315" Width="450" WindowStartupLocation="CenterScreen">
+        Title="Редактирование вопроса" Height="315" Width="450" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
     <Grid>
 
         <Grid.ColumnDefinitions>
