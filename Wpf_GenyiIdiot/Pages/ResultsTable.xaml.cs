@@ -3,6 +3,7 @@ using System.Windows.Controls;
 
 using Wpf_GenyiIdiot.Model;
 using Wpf_GenyiIdiot.Service;
+using Wpf_GenyiIdiot.ViewModel;
 
 namespace Wpf_GenyiIdiot.Pages
 {
@@ -14,23 +15,7 @@ namespace Wpf_GenyiIdiot.Pages
         public ResultsTable()
         {
             InitializeComponent();
-            OnStartResultsLoad();
-        }
-
-        private void OnStartResultsLoad()
-        {
-            resultsDataGrid.HeadersVisibility = DataGridHeadersVisibility.Column;
-            resultsDataGrid.ItemsSource = ResultService.GetResults();
-            resultsDataGrid.IsReadOnly = true;
-
-            var menu = new ContextMenu();
-            resultsDataGrid.ContextMenu = menu;
-
-            var deleteInMenu = new MenuItem();
-            deleteInMenu.Header = "Удалить";
-            deleteInMenu.Click += DeleteResultButton_Click;
-
-            menu.Items.Add(deleteInMenu);
+            DataContext = new ResultsTableViewModel();
         }
 
         private void OnExitButton_Click(object sender, RoutedEventArgs e)
@@ -38,19 +23,14 @@ namespace Wpf_GenyiIdiot.Pages
             this.Close();
         }
 
-        private void OnClearTable_Click(object sender, RoutedEventArgs e)
+        private void DeleteSelectedRow(object sender, RoutedEventArgs e)
         {
-            ResultService.ClearResults();
-            OnStartResultsLoad();
+            if (dataGrid.SelectedItem != null)
+            {
+                var res = dataGrid.SelectedItem;
+                ((ObservableCollection<Result>)dataGrid.ItemsSource).Remove((Result)res);
+                ResultService.RemoveResult((Result)res);
+            }
         }
-
-        private void DeleteResultButton_Click(object sender, RoutedEventArgs e)
-        {
-            ResultService.RemoveResult((Result)resultsDataGrid.SelectedItem);
-            OnStartResultsLoad();
-        }
-
-
-
     }
 }
