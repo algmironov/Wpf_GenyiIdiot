@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_GenyiIdiot.Pages"
+        xmlns:viewmodel="clr-namespace:Wpf_GenyiIdiot.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:QuestionsViewModel}"
         mc:Ignorable="d"
         Title="Настройки" MinHeight="480" MinWidth="650" Height="480" Width="650" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Center" Width="630">
@@ -35,12 +36,48 @@
             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2" Margin="1,4,1,1"></Border>
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button x:Name="addQuestionButton" Content="Добавить вопрос" HorizontalAlignment="Center" Margin="0,20,0,10" VerticalAlignment="Center" Width="156" Click="AddQuestionButton_Click"/>
-            <Button x:Name="editQuestionButton" Content="Редактировать вопрос" HorizontalAlignment="Center" Margin="0,10,0,10" VerticalAlignment="Center"  Width="156" Click="EditQuestionButton_Click"/>
-            <Button x:Name="deleteQuestionButton" Content="Удалить вопрос" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Center" Width="156" Click="DeleteQuestionButton_Click"/>
-            <Button x:Name="backToMainMenuQuestionButton" Content="Назад в главное меню" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Center" Width="156" Click="BackToMainMenuButton_Click"/>
+            <Button x:Name="addQuestionButton" Content="Добавить вопрос" 
+                    HorizontalAlignment="Center" Margin="0,20,0,10" 
+                    VerticalAlignment="Center" Width="156" Command="{Binding AddQuestionCommand}"/>
+            <Button x:Name="editQuestionButton" Content="Редактировать вопрос" 
+                    HorizontalAlignment="Center" Margin="0,10,0,10" 
+                    VerticalAlignment="Center"  Width="156" Command="{Binding EditQuestionCommand}"/>
+            <Button x:Name="deleteQuestionButton" Content="Удалить вопрос" 
+                    HorizontalAlignment="Center" Margin="0,10,0,0" 
+                    VerticalAlignment="Center" Width="156" Command="{Binding DeleteQuestionCommand}"/>
+            <Button x:Name="backToMainMenuQuestionButton" Content="Назад в главное меню" 
+                    HorizontalAlignment="Center" Margin="0,20,0,0" 
+                    VerticalAlignment="Center" Width="156" Click="BackToMainMenuButton_Click"/>
         </StackPanel>
-        <ListBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" x:Name="questionsListBox" Margin="15,4,0,0" BorderBrush="Black" BorderThickness="2" Height="414" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280"/>
+        <ListBox Grid.Row="0" 
+                 Grid.Column="1" 
+                 Grid.RowSpan="2" 
+                 x:Name="questionsListBox" 
+                 Margin="15,4,0,0" 
+                 BorderBrush="Black" 
+                 BorderThickness="2" 
+                 Height="414" 
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left" 
+                 Width="280"
+                 ItemsSource="{Binding Questions}"
+                 SelectedItem="{Binding SelectedQuestion}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить вопрос" Command="{Binding AddQuestionCommand}"/>
+                    <MenuItem Header="Редактировать вопрос" Command="{Binding EditQuestionCommand}"/>
+                    <MenuItem Header="Удалить вопрос" Command="{Binding DeleteQuestionCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Text}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
 
 
 
